@@ -1,0 +1,45 @@
+{% block content %}
+{% include "header.html" %}
+     <div class="bs-docs-section">
+         <div class="row tasks">
+          <div class="col-lg-12">
+              <form action="{{ url_for('home') }}" method="post">
+                <h3>Your active tasks</h3>
+                <div class="bs-component">
+                    {% for task in tasks %}
+                        <div class="form-check form-switch">
+                            {% if task['active'] == False %}
+                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+                                <label class="form-check-label" for="flexSwitchCheckChecked"><del>{{ task['task'] }}</del></label>
+                            {% else %}
+                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" name="{{ task['task_id'] }}">
+                                <label class="form-check-label" for="flexSwitchCheckChecked">{{ task['task'] }}</label>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+                  <button type="submit" class="btn btn-outline-light">Commit changes</button>
+              </form>
+            </div>
+        </div>
+        <div class="row new_task">
+          <div class="col-lg-6">
+            <form action="{{ url_for('home') }}" method="post">
+              <fieldset class="row mt-4">
+                <div class="form-group">
+                  <h3>Add a new task</h3>
+                  <input type="text" class="form-control" placeholder="Type a new exiting task to your list" id="inputDefault" name="task"/>
+                </div>
+              </fieldset>
+              <fieldset class="row mt-4">
+                <div class="col">
+                  <button type="submit" class="btn btn-outline-light">Submit task</button>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+
+      </div>
+{% include "footer.html" %}
+{% endblock %}

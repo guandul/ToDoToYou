@@ -1,0 +1,55 @@
+body{
+  padding-top: 20px;
+  color: #F76E11;
+  background-color: #444444;
+
+}
+a {
+    color: black;
+}
+.main-box {
+  min-height: 100vh;
+  padding-top: 0px;
+}
+.btn-outline-warning {
+    color: #FF9F45;
+    border-color: #FF9F45;
+}
+.btn-outline-warning:hover {
+  color: #fff;
+  background-color: #FF9F45;
+  border-color: #FF9F45;
+}
+
+.form-control {
+    color: #FFF;
+    background-color: #FF9F45;
+}
+
+.form-control:focus {
+  color: #FFF;
+  background-color: #FF9F45;
+}
+.navbar-dark{
+    background-color: #F76E11;
+}
+.table-dark {
+    --bs-table-bg: #FF9F45;
+    --bs-table-striped-bg: #13404b;
+    --bs-table-striped-color: #fff;
+    --bs-table-active-bg: #204a55;
+    --bs-table-active-color: #fff;
+    --bs-table-hover-bg: #1a4550;
+    --bs-table-hover-color: #fff;
+    color: #fff;
+    border-color: #204a55;
+}
+.tasks{
+    margin-top: 50px;
+}
+.form-check-input {
+    background-color: #FF9F45;
+}
+.form-check-input:checked {
+    background-color: #F76E11;
+}
