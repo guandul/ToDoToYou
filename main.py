@@ -6,7 +6,11 @@ import os
 # TODO your activa tasks and commit changes shows only if there are task on the queue
 # TODO login user
 # TODO delete old tasks
+# TODO change 127.0.0.1 to https://todotoyou.herokuapp.com/
 
+
+API_SERVER = os.environ.get("API_SERVER")
+DB_SERVER = os.environ.get("DB_SERVER")
 API_SECRET_KEY = os.environ.get("API_SECRET_KEY")
 username = "ramon"
 
@@ -15,7 +19,7 @@ app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 
 # Connect to Database
 db_password = "db_pass12"
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://db_user:"+db_password+"@127.0.0.1/todos"
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://db_user:" + db_password + "@" + DB_SERVER + "/todos"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -47,7 +51,7 @@ class Tasks(db.Model):
 # FE
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    url_endpoint1 = "http://127.0.0.1:5000/get_user_tasks"
+    url_endpoint1 = API_SERVER + ":5000/get_user_tasks"
     parameters1 = {
         "username": username
     }
@@ -60,7 +64,7 @@ def home():
         except KeyError:
             print("No task to add")
             print(request.form)
-            url_endpoint3 = "http://127.0.0.1:5000/finish_task"
+            url_endpoint3 = API_SERVER + ":5000/finish_task"
 
             for value in request.form:
                 parameters3 = {
@@ -79,7 +83,7 @@ def home():
 
         else:
             print(request.form['task'])
-            url_endpoint = "http://127.0.0.1:5000/add_new_task"
+            url_endpoint = API_SERVER + ":5000/add_new_task"
             parameters = {
                 "username": username,
                 "task": request.form['task']
