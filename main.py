@@ -19,7 +19,7 @@ app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-
+print(API_SERVER)
 
 # Tables Configuration
 class Users(db.Model):
@@ -46,6 +46,8 @@ class Tasks(db.Model):
 @app.route("/", methods=['GET', 'POST'])
 def home():
     url_endpoint1 = API_SERVER + ":5000/get_user_tasks"
+    print(API_SERVER)
+    print(url_endpoint1)
     parameters1 = {
         "username": username
     }
