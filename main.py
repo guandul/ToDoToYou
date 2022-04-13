@@ -51,7 +51,7 @@ def home():
         "username": username
     }
     response = requests.get(url_endpoint1, params=parameters1)
-    response.raise_for_status()
+    print(response.raise_for_status())
     tasks_data = response.json()
     print("Task data", tasks_data)
     if request.method == "POST":
