@@ -9,7 +9,7 @@ import os
 
 API_SERVER = os.environ.get("API_SERVER")
 API_SECRET_KEY = os.environ.get("API_SECRET_KEY")
-DATABASE_URI = os.environ.get("DATABASE_URL")
+DATABASE_URI = os.environ.get("DATABASE_URI")
 username = "ramon"
 
 app = Flask(__name__)
