@@ -8,16 +8,14 @@ import os
 # TODO delete old tasks
 
 API_SERVER = os.environ.get("API_SERVER")
-DB_SERVER = os.environ.get("DB_SERVER")
 API_SECRET_KEY = os.environ.get("API_SECRET_KEY")
-DB_PASSWORD = os.environ.get("DB_PASSWORD")
+DATABASE_URI = os.environ.get("DATABASE_URI")
 username = "ramon"
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 
 # Connect to Database
-DATABASE_URI = "postgresql+psycopg2://pgloader_pg:" + DB_PASSWORD + "@" + DB_SERVER + "/todos"
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
