@@ -45,7 +45,7 @@ class Tasks(db.Model):
 # FE
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    url_endpoint1 = API_SERVER + ":5000/get_user_tasks"
+    url_endpoint1 = API_SERVER + "/get_user_tasks"
     print("1", url_endpoint1)
     parameters1 = {
         "username": username
@@ -61,7 +61,7 @@ def home():
         except KeyError:
             print("No task to add")
             print(request.form)
-            url_endpoint3 = API_SERVER + ":5000/finish_task"
+            url_endpoint3 = API_SERVER + "/finish_task"
 
             for value in request.form:
                 parameters3 = {
@@ -77,7 +77,7 @@ def home():
             tasks_data = response.json()
             return render_template("index.html", tasks=tasks_data)
         else:
-            url_endpoint = API_SERVER + ":5000/add_new_task"
+            url_endpoint = API_SERVER + "/add_new_task"
             parameters = {
                 "username": username,
                 "task": request.form['task']
