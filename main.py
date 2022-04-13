@@ -3,28 +3,27 @@ from flask_sqlalchemy import SQLAlchemy
 import requests
 import os
 
-# TODO your activa tasks and commit changes shows only if there are task on the queue
+# TODO your active tasks and commit changes shows only if there are task on the queue
 # TODO login user
 # TODO delete old tasks
-# TODO change 127.0.0.1 to https://todotoyou.herokuapp.com/
-
 
 API_SERVER = os.environ.get("API_SERVER")
 DB_SERVER = os.environ.get("DB_SERVER")
 API_SECRET_KEY = os.environ.get("API_SECRET_KEY")
+DB_PASSWORD = os.environ.get("DB_PASSWORD")
 username = "ramon"
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 
 # Connect to Database
-db_password = "db_pass12"
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://db_user:" + db_password + "@" + DB_SERVER + "/todos"
+DATABASE_URI = "postgresql+psycopg2://pgloader_pg:" + DB_PASSWORD + "@" + DB_SERVER + "/todos"
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
-# Cafe TABLE Configuration
+# Tables Configuration
 class Users(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(250), nullable=False)
@@ -43,9 +42,6 @@ class Tasks(db.Model):
 
     def to_dict(self):
         return {column.name: getattr(self, column.name) for column in self.__table__.columns}
-
-
-
 
 
 # FE
@@ -79,10 +75,7 @@ def home():
             response.raise_for_status()
             tasks_data = response.json()
             return render_template("index.html", tasks=tasks_data)
-
-
         else:
-            print(request.form['task'])
             url_endpoint = API_SERVER + ":5000/add_new_task"
             parameters = {
                 "username": username,
@@ -133,18 +126,16 @@ def add_new_task():
         active=True,
         user_id=user_temp.user_id
     )
-
     db.session.add(new_task)
     db.session.commit()
     return jsonify(success={"Success": f"{request.args['task']} added to queue"})
 
 
-#  Mask task as done
+#  Mark task as done
 @app.route("/finish_task", methods=["PUT"])
 def finish_task():
     task_id = request.args['task_id']
     task_to_update = Tasks.query.filter_by(task_id=task_id).first()
-
     try:
         task_to_update.active = False
     except:
