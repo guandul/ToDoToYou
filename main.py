@@ -46,15 +46,11 @@ class Tasks(db.Model):
 @app.route("/", methods=['GET', 'POST'])
 def home():
     url_endpoint1 = API_SERVER + "/get_user_tasks"
-    print("1", url_endpoint1)
     parameters1 = {
         "username": username
     }
-    print("2", url_endpoint1, parameters1)
     response = requests.get(url_endpoint1, params=parameters1)
-    print("3", response.raise_for_status())
     tasks_data = response.json()
-    print("Task data", tasks_data)
     if request.method == "POST":
         try:
             request.form['task']
