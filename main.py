@@ -46,12 +46,13 @@ class Tasks(db.Model):
 @app.route("/", methods=['GET', 'POST'])
 def home():
     url_endpoint1 = API_SERVER + ":5000/get_user_tasks"
-    print(url_endpoint1)
+    print("1", url_endpoint1)
     parameters1 = {
         "username": username
     }
+    print("2", url_endpoint1, parameters1)
     response = requests.get(url_endpoint1, params=parameters1)
-    print(response.raise_for_status())
+    print("3", response.raise_for_status())
     tasks_data = response.json()
     print("Task data", tasks_data)
     if request.method == "POST":
